@@ -1,5 +1,7 @@
-import pygame
+"""Autor: Kevin Thalmann."""
 from pathlib import Path
+
+import pygame
 
 ROOT_PATH = Path.cwd()
 
@@ -47,13 +49,23 @@ space_ship_02 = pygame.transform.rotate(space_ship_02, 180)
 
 
 def draw_window(
-    player_01,
-    player_02,
-    bullets_player_01,
-    bullets_player_02,
-    player_01_health,
-    player_02_health,
-):
+    player_01: str,
+    player_02: str,
+    bullets_player_01: str,
+    bullets_player_02: str,
+    player_01_health: str,
+    player_02_health: str,
+) -> None:
+    """Draw the window.
+
+    Args:
+        player_01: _description_
+        player_02: _description_
+        bullets_player_01: _description_
+        bullets_player_02: _description_
+        player_01_health: _description_
+        player_02_health: _description_
+    """
     win.blit(backround, (0, 0))
     pygame.draw.rect(win, (0, 0, 0), rand)
 
@@ -93,7 +105,13 @@ def draw_window(
     pygame.display.update()
 
 
-def move_player_01(key_pressed, player_01):
+def move_player_01(key_pressed: str, player_01: str) -> None:
+    """Move the Player 01.
+
+    Args:
+        key_pressed: _description_
+        player_01: _description_
+    """
     if key_pressed[pygame.K_a] and player_01.x - VELOCITY > 0:  # links
         player_01.x -= VELOCITY
     if (
@@ -110,7 +128,13 @@ def move_player_01(key_pressed, player_01):
         player_01.y += VELOCITY
 
 
-def move_player_02(key_pressed, player_02):
+def move_player_02(key_pressed: str, player_02: str) -> None:
+    """Move the Player 02.
+
+    Args:
+        key_pressed: _description_
+        player_02: _description_
+    """
     if (
         key_pressed[pygame.K_LEFT] and player_02.x - VELOCITY > rand.x + 10
     ):  # links
@@ -129,7 +153,18 @@ def move_player_02(key_pressed, player_02):
         player_02.y += VELOCITY
 
 
-def handle_bullets(bullets_player_01, bullets_player_02, player_01, player_02):
+def handle_bullets(bullets_player_01: str,
+                   bullets_player_02: str,
+                   player_01: str,
+                   player_02: str) -> None:
+    """Handle the bullets.
+
+    Args:
+        bullets_player_01: _description_
+        bullets_player_02: _description_
+        player_01: _description_
+        player_02: _description_
+    """
     for bullets in bullets_player_01:
         bullets.x += VELOCITY_BULLETS
         if player_02.colliderect(bullets):
@@ -146,8 +181,13 @@ def handle_bullets(bullets_player_01, bullets_player_02, player_01, player_02):
             bullets_player_02.remove(bullets)
 
 
-def draw_winner(Winner_Text):
-    draw_text = winner_font.render(Winner_Text, 1, (255, 255, 255))
+def draw_winner(winner_text: str) -> None:
+    """Draw the winner text.
+
+    Args:
+        winner_text: _description_
+    """
+    draw_text = winner_font.render(winner_text, 1, (255, 255, 255))
     win.blit(
         draw_text,
         (
@@ -159,7 +199,8 @@ def draw_winner(Winner_Text):
     pygame.time.delay(5000)
 
 
-def game():
+def start_game() -> None:
+    """Start the game."""
     player_01 = pygame.Rect(100, 200, SPACESHIP_WIDHT, SPACESHIP_HEIGT)
     player_02 = pygame.Rect(1250, 200, SPACESHIP_WIDHT, SPACESHIP_HEIGT)
     bullets_player_01 = []
@@ -223,4 +264,5 @@ def game():
 
 
 if __name__ == "__main__":
-    game()
+    start_game()
+
